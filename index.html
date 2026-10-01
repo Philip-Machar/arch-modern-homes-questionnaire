@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arch Modern Homes | Website Content Questionnaire</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef1ef;
+    --paper: #ffffff;
+    --ink: #15221f;
+    --muted: #5b6b67;
+    --line: #d5dcd9;
+    --accent: #0f5c54;
+    --accent-dark: #0a403a;
+    --accent-soft: #e2efec;
+    --brass: #a97c2f;
+    --danger: #a3361f;
+    --radius: 6px;
+    --head: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
+    --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: var(--head); line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
+
+  /* ---------- Layout ---------- */
+  .shell { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+  .side {
+    position: sticky; top: 0; align-self: start; height: 100vh;
+    background: var(--accent-dark); color: #e9f2f0;
+    padding: 36px 28px; display: flex; flex-direction: column; gap: 28px;
+    overflow-y: auto;
+  }
+  .brand { font-family: var(--head); font-weight: 700; font-size: 1.35rem; line-height: 1.15; }
+  .brand small { display: block; font-family: var(--body); font-weight: 400; font-size: .85rem; color: #a9c7c1; margin-top: 6px; }
+  .nav { display: flex; flex-direction: column; gap: 4px; }
+  .nav a {
+    color: #cfe3df; text-decoration: none; padding: 9px 12px; border-radius: var(--radius);
+    font-weight: 500; font-size: .95rem; border-left: 3px solid transparent;
+  }
+  .nav a:hover { background: rgba(255,255,255,.07); }
+  .nav a.active { background: rgba(255,255,255,.1); color: #fff; border-left-color: #d9b46a; }
+  .progress { margin-top: auto; }
+  .progress-label { display: flex; justify-content: space-between; font-size: .85rem; color: #a9c7c1; margin-bottom: 8px; }
+  .bar { height: 6px; background: rgba(255,255,255,.15); border-radius: 99px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: #d9b46a; transition: width .3s; }
+  .saved-note { font-size: .8rem; color: #a9c7c1; margin-top: 10px; min-height: 1.2em; }
+
+  main { padding: 48px clamp(20px, 5vw, 64px) 96px; max-width: 920px; width: 100%; }
+
+  .intro h1 { font-size: clamp(2rem, 4vw, 2.9rem); }
+  .intro .sub { font-size: 1.1rem; color: var(--muted); margin: 10px 0 24px; }
+  .intro p { max-width: 62ch; }
+  .tips {
+    margin: 24px 0 0; padding: 16px 20px; background: var(--accent-soft);
+    border-left: 4px solid var(--accent); border-radius: var(--radius); font-size: .95rem;
+  }
+  .tips ul { margin: 8px 0 0; padding-left: 20px; }
+
+  .part { margin-top: 56px; }
+  .part > h2 {
+    font-size: 1.7rem; padding-bottom: 12px; border-bottom: 2px solid var(--ink); margin-bottom: 8px;
+  }
+  .part > .lead { color: var(--muted); max-width: 66ch; margin: 12px 0 0; }
+  h3.group { font-size: 1.15rem; margin: 36px 0 4px; color: var(--accent-dark); }
+
+  /* ---------- Questions ---------- */
+  .q {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 24px; margin-top: 18px;
+  }
+  .q > label.title, .q > .title {
+    display: block; font-weight: 600; font-size: 1.02rem; margin-bottom: 2px;
+  }
+  .q .qid {
+    display: inline-block; min-width: 2.2em; margin-right: 6px; font-family: var(--head);
+    font-weight: 700; color: var(--brass);
+  }
+  .hint { color: var(--muted); font-size: .9rem; margin: 2px 0 12px; max-width: 70ch; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=url], input[type=number], select, textarea {
+    width: 100%; font: inherit; color: inherit; background: #fbfcfb;
+    border: 1px solid #b9c4c0; border-radius: var(--radius); padding: 10px 12px;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  textarea.tall { min-height: 220px; }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--accent); background: #fff;
+    box-shadow: 0 0 0 3px rgba(15,92,84,.2);
+  }
+  ::placeholder { color: #8d9a96; }
+  .counter { font-size: .82rem; color: var(--muted); text-align: right; margin-top: 4px; }
+  .counter.over { color: var(--danger); font-weight: 600; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .field > span.fl { display: block; font-size: .88rem; font-weight: 500; color: var(--muted); margin-bottom: 4px; }
+
+  .checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-top: 10px; }
+  .check {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    border: 1px solid #b9c4c0; border-radius: var(--radius); cursor: pointer; background: #fbfcfb;
+  }
+  .check:hover { border-color: var(--accent); }
+  .check input { width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+  .check:has(input:checked) { background: var(--accent-soft); border-color: var(--accent); }
+  .other-wrap { margin-top: 12px; }
+
+  /* Repeating cards */
+  .rows { display: grid; gap: 16px; margin-top: 14px; }
+  .row {
+    border: 1px solid var(--line); border-left: 4px solid var(--accent);
+    border-radius: var(--radius); padding: 16px 18px; background: #fbfcfb;
+  }
+  .row-title { font-family: var(--head); font-weight: 600; margin-bottom: 10px; }
+  .row .field + .field, .row .grid2 + .field, .row .grid3 + .field, .row .field + .grid2, .row .grid2 + .grid2 { margin-top: 12px; }
+  .btn {
+    font: inherit; font-weight: 600; cursor: pointer; border-radius: var(--radius);
+    padding: 11px 20px; border: 1px solid var(--accent); transition: background .15s, color .15s;
+  }
+  .btn.ghost { background: transparent; color: var(--accent-dark); margin-top: 14px; }
+  .btn.ghost:hover { background: var(--accent-soft); }
+  .btn.solid { background: var(--accent); color: #fff; }
+  .btn.solid:hover { background: var(--accent-dark); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .btn:focus-visible, .nav a:focus-visible, .check:focus-within { outline: 3px solid #d9b46a; outline-offset: 2px; }
+
+  /* Decision rows (Why choose us / services) */
+  .decide { display: grid; gap: 14px; margin-top: 14px; }
+  .decide-item { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; background: #fbfcfb; }
+  .decide-item .claim { font-weight: 600; }
+  .decide-item .claim small { display: block; font-weight: 400; color: var(--muted); font-size: .9rem; }
+  .decide-item .answers { display: grid; grid-template-columns: 200px 1fr; gap: 14px; margin-top: 12px; align-items: start; }
+  .decide-item textarea { min-height: 64px; }
+
+  /* Submit */
+  .submit-card {
+    margin-top: 56px; background: var(--paper); border: 2px solid var(--ink);
+    border-radius: var(--radius); padding: 28px;
+  }
+  .submit-card h2 { font-size: 1.5rem; margin-bottom: 6px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .status { margin-top: 16px; font-weight: 500; }
+  .status.err { color: var(--danger); }
+  .hp { position: absolute; left: -9999px; height: 0; width: 0; opacity: 0; }
+
+  .thanks { display: none; margin-top: 40px; background: var(--paper); border: 2px solid var(--accent); border-radius: var(--radius); padding: 40px 32px; }
+  .thanks h2 { font-size: 2rem; margin-bottom: 10px; }
+
+  .footer-note { margin-top: 40px; color: var(--muted); font-size: .85rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .shell { display: block; }
+    .side {
+      position: sticky; top: 0; z-index: 10; height: auto; flex-direction: row; align-items: center;
+      padding: 12px 16px; gap: 14px; overflow: visible;
+    }
+    .brand { font-size: 1rem; flex: none; }
+    .brand small, .nav, .saved-note { display: none; }
+    .progress { margin: 0 0 0 auto; width: 46%; }
+    .progress-label { margin-bottom: 4px; font-size: .78rem; }
+    main { padding-top: 28px; }
+    .grid2, .grid3, .decide-item .answers { grid-template-columns: 1fr; }
+    .q { padding: 18px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+  @media print {
+    .side, .actions, .btn { display: none !important; }
+    .shell { display: block; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="side">
+    <div class="brand">Arch Modern Homes<small>Website content questionnaire</small></div>
+    <nav class="nav" id="nav">
+      <a href="#part-a">A. Company details</a>
+      <a href="#part-b">B. Home page</a>
+      <a href="#part-c">C. About page</a>
+      <a href="#part-d">D. Services page</a>
+      <a href="#submit">Send to us</a>
+    </nav>
+    <div class="progress">
+      <div class="progress-label"><span>Completed</span><span id="pct">0%</span></div>
+      <div class="bar"><span id="barfill"></span></div>
+      <div class="saved-note" id="savednote">Your answers save on this device as you type.</div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+    <form id="form" novalidate autocomplete="off">
+
+      <!-- Spam trap -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true">
+
+      <section class="intro">
+        <h1>Website Content &amp; Information Questionnaire</h1>
+        <p>Thank you for approving the concept website. The design is settled, but the names, numbers, stories, photos and client comments on the concept were placeholders written only to show how the finished site will look. Before we can launch, every one of them has to be replaced with your real information.</p>
+        <p>This page lists exactly what we need, section by section, in the same order as the website: company details, then the Home page, the About page and the Services page.</p>
+
+        <div class="q">
+          <span class="title">About you</span>
+          <p class="hint">So we know who this response is from.</p>
+          <div class="grid2">
+            <label class="field"><span class="fl">Your name</span><input type="text" name="Respondent name" placeholder="Full name"></label>
+            <label class="field"><span class="fl">Your role at the company</span><input type="text" name="Respondent role" placeholder="e.g. Managing Director"></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== PART A ====================== -->
+      <section class="part" id="part-a">
+        <h2>Part A: Company Details</h2>
+        <p class="lead">These details appear in the header, footer, contact page, contact form and the WhatsApp button, so they must be exactly right. Our concept contained temporary details, so please treat this section as the official source.</p>
+
+        <div class="q">
+          <label class="title" for="a1"><span class="qid">A1</span>What is the main phone number for calls?</label>
+          <p class="hint">Include the full number with country code, for example +254 7XX XXX XXX.</p>
+          <input id="a1" type="tel" name="A1 Main phone number" placeholder="+254 7XX XXX XXX">
+        </div>
+
+        <div class="q">
+          <label class="title" for="a2"><span class="qid">A2</span>What is the WhatsApp number?</label>
+          <p class="hint">The floating WhatsApp button and the contact form send enquiries to this number.</p>
+          <input id="a2" type="tel" name="A2 WhatsApp number" placeholder="+254 7XX XXX XXX">
+        </div>
+
+        <div class="q">
+          <label class="title" for="a3"><span class="qid">A3</span>What email address should appear on the website for enquiries?</label>
+          <input id="a3" type="email" name="A3 Enquiries email" placeholder="name@company.co.ke">
+        </div>
+
+        <div class="q">
+          <label class="title" for="a4"><span class="qid">A4</span>What is your physical office address?</label>
+          <p class="hint">Building name, floor, street and area. Please also send the Google Maps link or pin so the map on the Contact page points to the correct place. If you have more than one office, give the details of each and mark the head office.</p>
+          <textarea id="a4" name="A4 Office address"></textarea>
+          <div class="field" style="margin-top:12px">
+            <span class="fl">Google Maps link or pin</span>
+            <input type="url" name="A4 Google Maps link" placeholder="https://maps.google.com/...">
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="title" for="a5"><span class="qid">A5</span>What are your business hours?</label>
+          <p class="hint">List each day: Monday to Friday, Saturday, Sunday and public holidays.</p>
+          <div class="grid2">
+            <label class="field"><span class="fl">Monday to Friday</span><input type="text" name="A5 Hours Mon-Fri" placeholder="e.g. 8:00 AM to 5:00 PM"></label>
+            <label class="field"><span class="fl">Saturday</span><input type="text" name="A5 Hours Saturday" placeholder="e.g. 9:00 AM to 1:00 PM or Closed"></label>
+            <label class="field"><span class="fl">Sunday</span><input type="text" name="A5 Hours Sunday" placeholder="e.g. Closed"></label>
+            <label class="field"><span class="fl">Public holidays</span><input type="text" name="A5 Hours Public holidays" placeholder="e.g. Closed"></label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="title"><span class="qid">A6</span>Which social media pages should we link to?</span>
+          <p class="hint">Please give the full links for Facebook, Instagram, TikTok, LinkedIn, X (Twitter), YouTube, or any others you use. Only include pages that are active.</p>
+          <div class="grid2">
+            <label class="field"><span class="fl">Facebook</span><input type="url" name="A6 Facebook" placeholder="https://facebook.com/..."></label>
+            <label class="field"><span class="fl">Instagram</span><input type="url" name="A6 Instagram" placeholder="https://instagram.com/..."></label>
+            <label class="field"><span class="fl">TikTok</span><input type="url" name="A6 TikTok" placeholder="https://tiktok.com/@..."></label>
+            <label class="field"><span class="fl">LinkedIn</span><input type="url" name="A6 LinkedIn" placeholder="https://linkedin.com/company/..."></label>
+            <label class="field"><span class="fl">X (Twitter)</span><input type="url" name="A6 X (Twitter)" placeholder="https://x.com/..."></label>
+            <label class="field"><span class="fl">YouTube</span><input type="url" name="A6 YouTube" placeholder="https://youtube.com/@..."></label>
+          </div>
+          <div class="field" style="margin-top:14px">
+            <span class="fl">Any others</span>
+            <input type="text" name="A6 Other social pages" placeholder="Platform and link">
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="title" for="a7"><span class="qid">A7</span>Which areas of Kenya do you actually serve?</label>
+          <p class="hint">Only Nairobi, or other regions too (for example the coast, Mombasa or Diani)? This decides which places we mention in the site text and search suggestions.</p>
+          <textarea id="a7" name="A7 Areas served"></textarea>
+        </div>
+      </section>
+
+      <!-- ====================== PART B ====================== -->
+      <section class="part" id="part-b">
+        <h2>Part B: Home Page</h2>
+        <p class="lead">This part covers the Home page sections that need your real information: the property search, Prime Locations, Why Choose Us and Client Stories.</p>
+
+        <h3 class="group">Property search</h3>
+        <div class="q">
+          <span class="title"><span class="qid">B1</span>Which property types do you deal in?</span>
+          <p class="hint">Tick all that apply.</p>
+          <div class="checks">
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Houses &amp; Mansions"> Houses &amp; Mansions</label>
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Apartments"> Apartments</label>
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Villas"> Villas</label>
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Commercial Spaces (offices, shops, etc.)"> Commercial Spaces (offices, shops, etc.)</label>
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Plots &amp; Land"> Plots &amp; Land</label>
+            <label class="check"><input type="checkbox" name="B1 Property types" value="Other"> Other</label>
+          </div>
+          <div class="other-wrap">
+            <span class="fl" style="font-size:.88rem;font-weight:500;color:var(--muted)">Other (please write)</span>
+            <input type="text" name="B1 Other property type">
+          </div>
+        </div>
+
+        <h3 class="group">Prime Locations</h3>
+        <div class="q">
+          <span class="title"><span class="qid">B2</span>Which four areas do you want featured as your Prime Locations?</span>
+          <p class="hint">The concept shows four location cards: Karen, Westlands, Runda and Riverside. These were only our suggestions based on popular Nairobi areas. We need to know which areas are genuinely prime for your company.</p>
+          <div class="grid2">
+            <label class="field"><span class="fl">Area 1</span><input type="text" name="B2 Prime location 1"></label>
+            <label class="field"><span class="fl">Area 2</span><input type="text" name="B2 Prime location 2"></label>
+            <label class="field"><span class="fl">Area 3</span><input type="text" name="B2 Prime location 3"></label>
+            <label class="field"><span class="fl">Area 4</span><input type="text" name="B2 Prime location 4"></label>
+          </div>
+        </div>
+
+        <h3 class="group">Why Choose Us</h3>
+        <div class="q">
+          <span class="title"><span class="qid">B3</span>Is each of these strengths accurate for your business?</span>
+          <p class="hint">The concept lists four strengths. Every one of these is a promise to your customers, so each must be true for your business. For each one, choose Yes, Change or Remove. If you choose Change, add the corrected wording in the box.</p>
+          <div class="decide">
+            <div class="decide-item">
+              <div class="claim">Verified Properties<small>Every property undergoes rigorous verification and quality checks before listing</small></div>
+              <div class="answers">
+                <select name="B3 Verified Properties - Accurate?"><option value="">Choose...</option><option>Yes</option><option>Change</option><option>Remove</option></select>
+                <textarea name="B3 Verified Properties - Corrected wording" placeholder="Corrected wording (if you chose Change)"></textarea>
+              </div>
+            </div>
+            <div class="decide-item">
+              <div class="claim">Lightning Fast Process<small>Complete transactions in weeks, not months</small></div>
+              <div class="answers">
+                <select name="B3 Lightning Fast Process - Accurate?"><option value="">Choose...</option><option>Yes</option><option>Change</option><option>Remove</option></select>
+                <textarea name="B3 Lightning Fast Process - Corrected wording" placeholder="Corrected wording (if you chose Change)"></textarea>
+              </div>
+            </div>
+            <div class="decide-item">
+              <div class="claim">Legal Protection<small>Full legal compliance and comprehensive documentation</small></div>
+              <div class="answers">
+                <select name="B3 Legal Protection - Accurate?"><option value="">Choose...</option><option>Yes</option><option>Change</option><option>Remove</option></select>
+                <textarea name="B3 Legal Protection - Corrected wording" placeholder="Corrected wording (if you chose Change)"></textarea>
+              </div>
+            </div>
+            <div class="decide-item">
+              <div class="claim">Expert Guidance<small>Dedicated property consultants guide you through every step</small></div>
+              <div class="answers">
+                <select name="B3 Expert Guidance - Accurate?"><option value="">Choose...</option><option>Yes</option><option>Change</option><option>Remove</option></select>
+                <textarea name="B3 Expert Guidance - Corrected wording" placeholder="Corrected wording (if you chose Change)"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="title" for="b4"><span class="qid">B4</span>Is there anything else that truly sets you apart from other agencies?</label>
+          <textarea id="b4" name="B4 What sets you apart"></textarea>
+        </div>
+
+        <h3 class="group">Client Stories (testimonials)</h3>
+        <div class="q">
+          <span class="title">Real testimonials</span>
+          <p class="hint">The three testimonials in the concept were invented. Please send real ones, ideally 4 to 6, from genuine clients.</p>
+          <div class="rows" id="rows-testimonials"></div>
+          <button type="button" class="btn ghost" data-add="testimonials">Add another testimonial</button>
+        </div>
+      </section>
+
+      <!-- ====================== PART C ====================== -->
+      <section class="part" id="part-c">
+        <h2>Part C: About Page</h2>
+        <p class="lead">This part covers the About page sections that need your real information: key numbers, Our Story, Our Journey, Our Motivation, Meet Our Team and Frequently Asked Questions.</p>
+
+        <h3 class="group">Key numbers</h3>
+        <div class="q">
+          <span class="title">Your real figures</span>
+          <p class="hint">The figures in the concept (15+ years, 2,500+ properties sold, 50+ agents) were made up, so please give us your real ones. The year your company was founded, which is shown on the About page banner, in the Our Story section and on the Home page, so one correct figure will be used everywhere.</p>
+          <div class="grid2">
+            <label class="field"><span class="fl">Year the company was founded</span><input type="text" inputmode="numeric" name="Key number: Year founded" placeholder="e.g. 2012"></label>
+            <label class="field"><span class="fl">Total properties sold (or sold and rented)</span><input type="text" name="Key number: Properties sold"></label>
+            <label class="field"><span class="fl">Number of agents / staff (skip if you prefer not to show it)</span><input type="text" name="Key number: Agents / staff"></label>
+            <label class="field"><span class="fl">Another figure you are proud of (for example happy clients, properties managed, awards won)</span><input type="text" name="Key number: Another figure"></label>
+          </div>
+        </div>
+
+        <h3 class="group">Our Story</h3>
+        <div class="q">
+          <label class="title" for="c1"><span class="qid">C1</span>Tell us the Arch Modern Homes story in your own words.</label>
+          <p class="hint">Aim for 150 to 300 words. It does not need to be polished: we will tidy the language and you will approve the final version. Helpful prompts: Who founded the company and when? What made them start? Where was the first office? What were the early challenges? How did the company grow? What kind of clients do you serve today? What makes you different?</p>
+          <textarea id="c1" class="tall" name="C1 Our Story" data-words="150-300"></textarea>
+          <div class="counter" data-for="c1"></div>
+        </div>
+
+        <h3 class="group">Our Journey (milestones of success)</h3>
+        <div class="q">
+          <span class="title">Your real milestones</span>
+          <p class="hint">The timeline in the concept (Founded in 2009, expanded to Mombasa, 1,000th property sold, and so on) was invented. Please give us your real milestones, between 4 and 6. Ideas: the year the company was founded, your first office, the first big project or sale, reaching a number of properties sold, opening a new office, launching a new service, winning an award or certification, a major partnership, launching this website.</p>
+          <div class="rows" id="rows-milestones"></div>
+          <button type="button" class="btn ghost" data-add="milestones">Add another milestone</button>
+        </div>
+
+        <h3 class="group">Our Motivation (the vision behind Arch Modern Homes)</h3>
+        <div class="q">
+          <label class="title" for="c2"><span class="qid">C2</span>What is the vision behind Arch Modern Homes?</label>
+          <p class="hint">In two to four sentences: why does the company exist, and what do you want to change or achieve for your clients? This appears as a highlighted quote, so write it the way the founder would say it.</p>
+          <textarea id="c2" name="C2 Vision"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="title" for="c3"><span class="qid">C3</span>Is there a mission statement, or anything you want said about the founder's motivation?</label>
+          <p class="hint">Optional. For example, a personal experience that led the founder into real estate.</p>
+          <textarea id="c3" name="C3 Mission / founder motivation"></textarea>
+          <div class="grid2" style="margin-top:14px">
+            <label class="field"><span class="fl">Founder / person attached to this quote: full name (exactly as it should appear)</span><input type="text" name="C3 Founder full name"></label>
+            <label class="field"><span class="fl">Title (for example Founder &amp; Managing Director)</span><input type="text" name="C3 Founder title"></label>
+          </div>
+        </div>
+
+        <h3 class="group">Meet Our Team</h3>
+        <div class="q">
+          <span class="title">Team members</span>
+          <p class="hint">Please list every team member who should appear, starting with leadership. The concept used made-up names and stock photos. For each person we need a real portrait. If you have more than six people, add more with the button below.</p>
+          <div class="rows" id="rows-team"></div>
+          <button type="button" class="btn ghost" data-add="team">Add another team member</button>
+        </div>
+
+        <h3 class="group">Frequently Asked Questions</h3>
+        <div class="q">
+          <span class="title">Real answers for your company</span>
+          <p class="hint">The concept showed five sample questions with generic answers. Please write the real answers for your company, and add any others customers often ask. Keep each answer short (about 50 words or fewer), because it is displayed in a compact expandable box.</p>
+          <p class="hint"><strong>Topics customers often ask about:</strong> scheduling a viewing; documents needed to buy; financing and mortgages; your fees or commission; how to list a property with you; rental deposits and tenant requirements; how long a sale usually takes; whether you work with Kenyans in the diaspora and foreign buyers; how offers and payments work; after-sales support.</p>
+
+          <div class="rows">
+            <div class="row">
+              <div class="row-title">How do I schedule a property viewing?</div>
+              <textarea id="faq1" name="FAQ: How do I schedule a property viewing?" data-words="0-50"></textarea>
+              <div class="counter" data-for="faq1"></div>
+            </div>
+            <div class="row">
+              <div class="row-title">What documents do I need to buy a property?</div>
+              <textarea id="faq2" name="FAQ: What documents do I need to buy a property?" data-words="0-50"></textarea>
+              <div class="counter" data-for="faq2"></div>
+            </div>
+            <div class="row">
+              <div class="row-title">Do you help with property financing?</div>
+              <textarea id="faq3" name="FAQ: Do you help with property financing?" data-words="0-50"></textarea>
+              <div class="counter" data-for="faq3"></div>
+            </div>
+            <div class="row">
+              <div class="row-title">What are your service fees?</div>
+              <textarea id="faq4" name="FAQ: What are your service fees?" data-words="0-50"></textarea>
+              <div class="counter" data-for="faq4"></div>
+            </div>
+            <div class="row">
+              <div class="row-title">Can I list my property with you?</div>
+              <textarea id="faq5" name="FAQ: Can I list my property with you?" data-words="0-50"></textarea>
+              <div class="counter" data-for="faq5"></div>
+            </div>
+          </div>
+
+          <h3 class="group" style="margin-top:28px">Extra questions you would like added</h3>
+          <div class="rows" id="rows-faq"></div>
+          <button type="button" class="btn ghost" data-add="faq">Add another question</button>
+        </div>
+      </section>
+
+      <!-- ====================== PART D ====================== -->
+      <section class="part" id="part-d">
+        <h2>Part D: Services Page</h2>
+        <p class="lead">The Services page also contains sample content that needs your confirmation.</p>
+
+        <div class="q">
+          <span class="title"><span class="qid">D1</span>Which of these services do you actually offer?</span>
+          <p class="hint">For each service, choose Yes or No. If the wording needs correcting, write the change in the box. Use the last row for any service you offer that is not listed.</p>
+          <div class="decide" id="services"></div>
+        </div>
+      </section>
+
+      <!-- ====================== SUBMIT ====================== -->
+      <section class="submit-card" id="submit">
+        <h2>All done? Send us your answers</h2>
+        <div class="actions">
+          <button type="submit" class="btn solid" id="sendbtn">Send my answers</button>
+          <button type="button" class="btn ghost" id="dlbtn" style="margin-top:0">Download a copy of my answers</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <p class="footer-note">Arch Modern Homes | Website Content Questionnaire</p>
+    </form>
+
+    <section class="thanks" id="thanks" tabindex="-1">
+      <h2>Thank you!</h2>
+      <p>We have received your answers. We will review them, tidy the wording and send you the final text to approve before the website goes live.</p>
+      <p>If you have photos to send, please share them with us by email, WhatsApp or a shared folder link.</p>
+    </section>
+  </main>
+</div>
+
+<script>
+/* =====================================================================
+   SETUP (the developer edits only this block)
+   1. Go to https://web3forms.com, enter YOUR email, and copy the access key.
+   2. Paste it below. Submissions will arrive in your inbox.
+   ===================================================================== */
+const CONFIG = {
+  ACCESS_KEY: "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE",
+  ENDPOINT: "https://api.web3forms.com/submit",
+  EMAIL_SUBJECT: "Arch Modern Homes: website questionnaire answers",
+  STORAGE_KEY: "amh-questionnaire-v1"
+};
+
+/* ---------- Repeating row definitions ---------- */
+const ROW_TYPES = {
+  testimonials: {
+    label: "Testimonial", min: 4,
+    fields: [
+      { key: "Client name", span: "half" },
+      { key: "Who they are (for example investor, tenant, seller)", span: "half" },
+      { key: "What they said", type: "textarea" },
+      { key: "Photo (file name)", span: "half" }
+    ]
+  },
+  milestones: {
+    label: "Milestone", min: 4,
+    fields: [
+      { key: "Year", span: "half", placeholder: "e.g. 2015" },
+      { key: "Milestone title (short)", span: "half" },
+      { key: "Description (one or two sentences)", type: "textarea" }
+    ]
+  },
+  team: {
+    label: "Team member", min: 6,
+    fields: [
+      { key: "Full name", span: "half" },
+      { key: "Position", span: "half" },
+      { key: "Short bio (1 or 2 sentences)", type: "textarea" },
+      { key: "Photo (file name)", span: "half" }
+    ]
+  },
+  faq: {
+    label: "Extra question", min: 2,
+    fields: [
+      { key: "Question" },
+      { key: "Your real answer", type: "textarea", words: "0-50" }
+    ]
+  }
+};
+
+const SERVICES = [
+  { name: "Property Sales", note: "buying and selling" },
+  { name: "Property Rentals", note: "tenant placement, rent collection" },
+  { name: "Property Management", note: "inspections, financial reporting, 24/7 support" },
+  { name: "Investment Consulting", note: "ROI analysis, portfolio strategy" },
+  { name: "Property Valuation", note: "certified valuers" },
+  { name: "Legal Support", note: "title search, transfers, through partner lawyers" }
+];
+
+const form = document.getElementById("form");
+const counts = {};   // how many rows exist per repeating group
+
+/* ---------- Build repeating rows ---------- */
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+
+function addRow(type) {
+  const def = ROW_TYPES[type];
+  const n = (counts[type] = (counts[type] || 0) + 1);
+  const wrap = document.createElement("div");
+  wrap.className = "row";
+  let html = `<div class="row-title">${def.label} ${n}</div>`;
+  let pending = [];
+  const flush = () => {
+    if (pending.length) { html += `<div class="grid2">${pending.join("")}</div>`; pending = []; }
+  };
+  def.fields.forEach((f, i) => {
+    const name = `${def.label} ${n} - ${f.key}`;
+    const id = `${type}-${n}-${i}`;
+    let control;
+    if (f.type === "textarea") {
+      control = `<textarea id="${id}" name="${esc(name)}"${f.words ? ` data-words="${f.words}"` : ""}></textarea>` +
+                (f.words ? `<div class="counter" data-for="${id}"></div>` : "");
+    } else {
+      control = `<input type="text" id="${id}" name="${esc(name)}"${f.placeholder ? ` placeholder="${esc(f.placeholder)}"` : ""}>`;
+    }
+    const field = `<label class="field"><span class="fl">${esc(f.key)}</span>${control}</label>`;
+    if (f.span === "half") { pending.push(field); }
+    else { flush(); html += field; }
+  });
+  flush();
+  wrap.innerHTML = html;
+  document.getElementById("rows-" + type).appendChild(wrap);
+  wrap.querySelectorAll("textarea[data-words]").forEach(attachCounter);
+}
+
+Object.keys(ROW_TYPES).forEach(t => { for (let i = 0; i < ROW_TYPES[t].min; i++) addRow(t); });
+
+document.querySelectorAll("[data-add]").forEach(btn =>
+  btn.addEventListener("click", () => { addRow(btn.dataset.add); updateProgress(); })
+);
+
+/* ---------- Build the services block ---------- */
+(function buildServices() {
+  const box = document.getElementById("services");
+  SERVICES.forEach(s => {
+    const el = document.createElement("div");
+    el.className = "decide-item";
+    el.innerHTML = `
+      <div class="claim">${esc(s.name)}<small>${esc(s.note)}</small></div>
+      <div class="answers">
+        <select name="D1 ${esc(s.name)} - Offered?"><option value="">Choose...</option><option>Yes</option><option>No</option></select>
+        <textarea name="D1 ${esc(s.name)} - Corrections" placeholder="Corrections to the wording (optional)"></textarea>
+      </div>`;
+    box.appendChild(el);
+  });
+  const other = document.createElement("div");
+  other.className = "decide-item";
+  other.innerHTML = `
+    <div class="claim">Any other service you offer<small>Name it and describe it briefly</small></div>
+    <div class="answers" style="grid-template-columns:1fr">
+      <textarea name="D1 Other services"></textarea>
+    </div>`;
+  box.appendChild(other);
+})();
+
+/* ---------- Word counters ---------- */
+function wordCount(s) { const t = s.trim(); return t ? t.split(/\s+/).length : 0; }
+function attachCounter(ta) {
+  const [min, max] = ta.dataset.words.split("-").map(Number);
+  const out = document.querySelector(`.counter[data-for="${ta.id}"]`);
+  if (!out) return;
+  const upd = () => {
+    const w = wordCount(ta.value);
+    out.textContent = min ? `${w} words (aim for ${min} to ${max})` : `${w} of about ${max} words`;
+    out.classList.toggle("over", (max && w > max) || (min && w > 0 && w < min));
+  };
+  ta.addEventListener("input", upd);
+  upd();
+}
+document.querySelectorAll("textarea[data-words]").forEach(attachCounter);
+
+/* ---------- Collect answers ---------- */
+function collect() {
+  const data = [];            // ordered [label, value]
+  const seen = {};
+  Array.from(form.elements).forEach(el => {
+    if (!el.name || el.name === "botcheck" || el.type === "button" || el.type === "submit") return;
+    if (el.type === "checkbox") {
+      if (!el.checked) return;
+      const k = el.name;
+      if (seen[k] === undefined) { seen[k] = data.length; data.push([k, el.value]); }
+      else data[seen[k]][1] += ", " + el.value;
+      return;
+    }
+    const v = el.value.trim();
+    if (v) data.push([el.name, v]);
+  });
+  return data;
+}
+
+/* ---------- Progress ---------- */
+function updateProgress() {
+  const fields = Array.from(form.elements).filter(el =>
+    el.name && el.name !== "botcheck" && el.type !== "button" && el.type !== "submit" && el.type !== "checkbox");
+  const boxes = new Set(Array.from(form.querySelectorAll('input[type=checkbox][name]')).filter(e => e.name !== "botcheck").map(e => e.name));
+  let filled = fields.filter(f => f.value.trim()).length;
+  let total = fields.length + boxes.size;
+  boxes.forEach(n => { if (form.querySelector(`input[type=checkbox][name="${n}"]:checked`)) filled++; });
+  const pct = total ? Math.round((filled / total) * 100) : 0;
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("barfill").style.width = pct + "%";
+}
+
+/* ---------- Autosave to this device ---------- */
+let saveTimer;
+function save() {
+  try {
+    const state = { counts, values: {} };
+    Array.from(form.elements).forEach(el => {
+      if (!el.name || el.name === "botcheck" || el.type === "button" || el.type === "submit") return;
+      if (el.type === "checkbox") { if (el.checked) state.values[el.name + "||" + el.value] = "1"; }
+      else if (el.value) state.values[el.name] = el.value;
+    });
+    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(state));
+    document.getElementById("savednote").textContent = "Saved on this device.";
+  } catch (e) { /* storage unavailable: ignore */ }
+}
+function restore() {
+  try {
+    const raw = localStorage.getItem(CONFIG.STORAGE_KEY);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    Object.keys(state.counts || {}).forEach(t => { while ((counts[t] || 0) < state.counts[t]) addRow(t); });
+    Array.from(form.elements).forEach(el => {
+      if (!el.name || el.name === "botcheck") return;
+      if (el.type === "checkbox") { el.checked = state.values[el.name + "||" + el.value] === "1"; }
+      else if (state.values[el.name] !== undefined) {
+        el.value = state.values[el.name];
+        el.dispatchEvent(new Event("input"));
+      }
+    });
+    document.getElementById("savednote").textContent = "Your earlier answers were restored.";
+  } catch (e) { /* ignore */ }
+}
+restore();
+updateProgress();
+
+form.addEventListener("input", () => { updateProgress(); clearTimeout(saveTimer); saveTimer = setTimeout(save, 400); });
+form.addEventListener("change", () => { updateProgress(); clearTimeout(saveTimer); saveTimer = setTimeout(save, 400); });
+
+/* ---------- Sidebar highlight ---------- */
+const links = Array.from(document.querySelectorAll("#nav a"));
+const targets = links.map(a => document.querySelector(a.getAttribute("href")));
+function onScroll() {
+  let current = 0;
+  targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < window.innerHeight * 0.4) current = i; });
+  links.forEach((a, i) => a.classList.toggle("active", i === current));
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+/* ---------- Download a copy ---------- */
+function asText() {
+  const lines = ["ARCH MODERN HOMES: WEBSITE CONTENT QUESTIONNAIRE", "Saved: " + new Date().toLocaleString(), ""];
+  collect().forEach(([k, v]) => lines.push(k + ":\n" + v + "\n"));
+  return lines.join("\n");
+}
+document.getElementById("dlbtn").addEventListener("click", () => {
+  const blob = new Blob([asText()], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Arch-Modern-Homes-questionnaire-answers.txt";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+/* ---------- Submit ---------- */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const status = document.getElementById("status");
+  const btn = document.getElementById("sendbtn");
+  status.className = "status";
+
+  if (form.elements["botcheck"].checked) return;       // bot
+  const answers = collect();
+  if (answers.length === 0) {
+    status.classList.add("err");
+    status.textContent = "Please answer at least one question before sending.";
+    return;
+  }
+  if (CONFIG.ACCESS_KEY.startsWith("PASTE_")) {
+    status.classList.add("err");
+    status.textContent = "This form is not connected yet. Please contact your web developer.";
+    return;
+  }
+
+  const payload = {
+    access_key: CONFIG.ACCESS_KEY,
+    subject: CONFIG.EMAIL_SUBJECT,
+    from_name: (form.elements["Respondent name"].value.trim() || "Arch Modern Homes client"),
+    botcheck: ""
+  };
+  answers.forEach(([k, v]) => { payload[k] = v; });
+
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  status.textContent = "Sending your answers...";
+  try {
+    const res = await fetch(CONFIG.ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) throw new Error(json.message || "Send failed");
+    try { localStorage.removeItem(CONFIG.STORAGE_KEY); } catch (_) {}
+    form.style.display = "none";
+    const thanks = document.getElementById("thanks");
+    thanks.style.display = "block";
+    thanks.focus();
+    window.scrollTo({ top: 0 });
+  } catch (err) {
+    status.classList.add("err");
+    status.textContent = "We could not send your answers. Your work is still saved here. Please check your internet connection and try again, or use \"Download a copy of my answers\" and email the file to us.";
+    btn.disabled = false;
+    btn.textContent = "Send my answers";
+  }
+});
+</script>
+</body>
+</html>
